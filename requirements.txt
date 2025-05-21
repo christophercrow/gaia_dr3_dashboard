@@ -1,0 +1,13 @@
+# requirements.txt
+
+astroquery
+astropy
+sqlalchemy
+psycopg2-binary
+pandas
+numpy
+pyyaml
+streamlit
+plotly
+python-dotenv
+pytest

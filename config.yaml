@@ -1,0 +1,8 @@
+region:
+  center_ra: 56.75
+  center_dec: 24.12
+  radius: 0.5
+phot_g_mean_mag_max: 17.0
+parallax_min: 0.0
+limit: 5000       # Try 5,000–50,000; >50k might be slow or fail
+dump_to_file: true
