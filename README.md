@@ -1,6 +1,6 @@
 # Gaia DR3 ETL & Interactive Dashboard
 
-**A full-stack, graduate-level pipeline for querying, processing, and exploring Gaia DR3 data with scientific visualizations.**
+**A full-stack pipeline for querying, processing, and exploring Gaia DR3 data with scientific visualizations.**
 
 ![example_dashboard.png](example_dashboard.png)
 
