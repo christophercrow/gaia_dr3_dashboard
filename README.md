@@ -211,6 +211,6 @@ For questions or collaboration, open an issue or contact [https://github.com/chr
 
 ---
 
-**Happy exploring the galaxy!** 🌌
+**Happy exploring the galaxy!**
 
 
