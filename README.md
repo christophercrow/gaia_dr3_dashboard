@@ -2,221 +2,215 @@
 
 **A full-stack pipeline for querying, processing, and exploring Gaia DR3 data with scientific visualizations.**
 
-![example_dashboard.png](example_dashboard.png)
+![Example Dashboard](example_dashboard.png)
 
 ---
 
 ## Project Overview
 
-This project demonstrates an end-to-end, modular workflow for extracting astrophysical insight from the ESA Gaia DR3 catalog.  
-It features:
+This project provides an **end-to-end, modular workflow** for extracting astrophysical insights from the ESA Gaia DR3 catalog.
+It is built for **astronomers, data scientists, and students** who want to:
 
-- **Configurable ETL pipeline:** Download, clean, and load selected Gaia DR3 data into a PostgreSQL database using modern Python tools.
-- **Interactive Streamlit dashboard:** Explore Hertzsprung–Russell diagrams, sky maps, and proper motion plots in real time.
-- **Modular, testable codebase:** All components are unit-tested and can be extended for advanced research or teaching.
-- **Reproducible deployment:** Docker, Makefile, and .env-driven configuration make setup fast on any platform.
-
-## Scientific Motivation
-
-The Gaia mission has transformed our understanding of the Milky Way by mapping the positions, distances, and motions of more than a billion stars.  
-This project provides a *research-ready* starting point for:
-
-- Exploring the solar neighborhood
-- Identifying open clusters and stellar streams
-- Studying high-proper-motion stars
-- Teaching data-driven astrophysics with real data
-
-## Directory Structure
-
-```
-
-gaia\_dr3\_dashboard/
-│
-├── astro\_etl/                # ETL pipeline (fetch, clean, transform, load)
-│   ├── config.py
-│   ├── data\_fetcher.py
-│   ├── data\_cleaner.py
-│   ├── load\_data.py
-│   ├── database.py
-│   ├── models.py
-│   └── utils/
-│       ├── transformations.py
-│       └── logging\_util.py
-├── dashboard/                # Streamlit app and plotting utilities
-│   ├── app.py
-│   ├── plots.py
-│   ├── sidebar.py
-│   └── data\_loader.py
-├── scripts/                  # Database schema, partitioning, migration SQL
-├── tests/                    # Unit and integration tests (pytest)
-├── .github/workflows/ci.yml  # Continuous Integration
-├── .env.example
-├── config.yaml
-├── requirements.txt
-├── pyproject.toml
-├── docker-compose.yml
-├── Makefile
-└── README.md
-
-````
+* Efficiently **fetch, clean, and manage** Gaia DR3 data.
+* Store the data in a scalable **PostgreSQL** database.
+* **Explore** and **visualize** the data interactively through a modern dashboard.
 
 ---
 
-## 🛠️ Setup Instructions
+## Features
 
-### 1. **Clone and Install**
+* **Configurable ETL pipeline:** Download, clean, and load selected Gaia DR3 data into PostgreSQL using Python.
+* **Extensible data models:** Modular, well-documented scripts for further analysis or pipeline customization.
+* **Interactive dashboard:** Built with Streamlit and Plotly for live data filtering, custom plots, and scientific exploration.
+* **Dockerized deployment:** Run everything locally or in the cloud using Docker Compose.
+* **Tested workflow:** Includes testing scripts for robust development.
 
-```bash
-git clone https://github.com/yourusername/gaia-dr3-dashboard.git
-cd gaia-dr3-dashboard
-pip install -r requirements.txt
-````
+---
 
-### 2. **Set Up PostgreSQL Database**
+## Folder Structure
 
-**Recommended:** Use Docker for portability.
-
-```bash
-docker-compose up -d db
+```
+.
+├── astro_etl/            # ETL pipeline: fetch, clean, load Gaia DR3 data
+├── dashboard/            # Streamlit dashboard app (main: app.py)
+├── data/                 # (Optional) Local data storage
+├── scripts/              # SQL and migration scripts for PostgreSQL
+├── tests/                # Unit tests for ETL and dashboard modules
+├── .env                  # Environment variables (DB credentials, etc.)
+├── config.yaml           # Pipeline & dashboard config (sample included)
+├── docker-compose.yml    # Orchestrate full stack with Docker
+├── requirements.txt      # Python dependencies
+├── pyproject.toml        # Project metadata
+├── example_dashboard.png # Sample dashboard screenshot
+└── README.md             # Project documentation
 ```
 
-Or install PostgreSQL locally.
+---
 
-**Create the schema:**
+## Getting Started
+
+### 1. **Clone the Repository**
 
 ```bash
-psql $DATABASE_URL -f scripts/schema.sql
+git clone https://github.com/YOUR_USERNAME/gaia_dr3_dashboard.git
+cd gaia_dr3_dashboard
 ```
 
-### 3. **Configure Your Environment**
+### 2. **Set Up Environment**
 
-* Copy `.env.example` to `.env` and edit as needed.
-* Edit `config.yaml` to set your sky region, limits, and filters.
+* **Install Python 3.8+** and [pip](https://pip.pypa.io/en/stable/).
+
+* *(Recommended)* Create a virtual environment:
+
+  ```bash
+  python -m venv venv
+  source venv/bin/activate  # On Windows: venv\Scripts\activate
+  ```
+
+* **Install dependencies:**
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+### 3. **Configure Database**
+
+* Make sure you have a local or cloud **PostgreSQL** instance running.
+
+* Copy `.env.example` to `.env` (or create `.env`) and set your database connection string:
+
+  ```
+  DATABASE_URL=postgresql://user:password@localhost:5432/gaia
+  ```
+
+* Run the migration scripts to set up the database schema:
+
+  ```bash
+  psql -U user -d gaia -f scripts/schema.sql
+  ```
 
 ### 4. **Run the ETL Pipeline**
 
-```bash
-make run_pipeline
-```
+* **Configure your ETL pipeline** in `config.yaml`.
+* Download, clean, and load data:
 
-This will:
+  ```bash
+  python -m astro_etl.load_data
+  ```
 
-* Query Gaia DR3 (using Astroquery and ADQL)
-* Clean and transform the data
-* Load it into the PostgreSQL database
-
-### 5. **Launch the Dashboard**
+### 5. **Start the Dashboard**
 
 ```bash
-make dashboard
+cd dashboard
+streamlit run app.py
 ```
 
-Then open `http://localhost:8501` in your browser.
+* Access the dashboard in your browser at `http://localhost:8501`.
+
+---
+
+## Dockerized Workflow (Optional)
+
+To launch the **database, ETL, and dashboard** all at once:
+
+```bash
+docker-compose up --build
+```
+
+* Modify `docker-compose.yml` as needed for your environment.
+
+---
+
+## Key Modules
+
+* `astro_etl/`:
+
+  * `data_fetcher.py`: Downloads Gaia DR3 data.
+  * `data_cleaner.py`: Cleans and preprocesses raw data.
+  * `database.py`: Handles database connections and queries.
+  * `models.py`: Database models (SQLAlchemy).
+  * `tiling_fetch.py`: Utilities for sky tiling queries.
+
+* `dashboard/`:
+
+  * `app.py`: Main Streamlit entry point.
+  * `plots.py`: Generates interactive scientific plots (e.g., HR diagram, sky map).
+  * `sidebar.py`: Sidebar with filters and info.
+  * `data_loader.py`: Loads data from the database.
 
 ---
 
 ## Testing
 
-Run all tests with:
+To run unit tests:
 
 ```bash
-make test
-```
-
-or
-
-```bash
-pytest tests/
+pytest
 ```
 
 ---
 
-## Example Scientific Use Cases
+## Example Usage
 
-* **Solar Neighborhood:**
-  Set `parallax_min: 20` (within 50pc), see the HR diagram for local stellar types.
+Explore features such as:
 
-* **Open Clusters:**
-  Set `center_ra`, `center_dec`, and `radius` to match a cluster (e.g., Pleiades: RA=56.75, Dec=24.12, r=2°), study cluster sequence.
-
-* **High Proper Motion Stars:**
-  Filter by `pm_total > 50 mas/yr` to find runaway or nearby stars.
-
-* **Color-Magnitude Selection:**
-  Use the sidebar sliders to identify main sequence, white dwarfs, or giants.
+* Interactive Hertzsprung–Russell diagram
+* Sky position maps
+* Proper motion visualizations
+* Custom histogram queries
 
 ---
 
-## Documentation
+## Requirements
 
-### ETL Pipeline
+* Python 3.8+
+* PostgreSQL 12+
+* See `requirements.txt` for Python dependencies:
 
-* **astro\_etl/config.py:** Loads config from `.env` and `config.yaml` for all modules.
-* **astro\_etl/data\_fetcher.py:** Fetches Gaia data with custom ADQL query.
-* **astro\_etl/data\_cleaner.py:** Cleans, filters, and computes derived quantities (distance, abs mag, proper motion).
-* **astro\_etl/load\_data.py:** Loads cleaned data into PostgreSQL with SQLAlchemy ORM.
-
-### Dashboard
-
-* **dashboard/app.py:** Main Streamlit entry point, ties together filters, plots, and sidebar.
-* **dashboard/plots.py:** Plotly visualizations: HR diagram, sky map, proper motion.
-* **dashboard/sidebar.py:** Scientific explanations and links for users.
-
-### Database
-
-* **scripts/schema.sql:** PostgreSQL schema for the `gaia_source` table.
-* **scripts/partitions.sql:** (Optional) Partitioning for very large datasets.
-* **scripts/migration\_example.sql:** Example migration for adding new science columns.
-
-### Utilities
-
-* **astro\_etl/utils/transformations.py:** Astrophysical helper functions for distance, magnitude, motion.
-* **astro\_etl/utils/logging\_util.py:** Consistent logging configuration.
-
-### Testing
-
-* **tests/**: Unit and integration tests for every pipeline stage and dashboard plot.
-* **.github/workflows/ci.yml:** Continuous Integration (pytest + lint on push).
+  ```
+  astroquery
+  astropy
+  sqlalchemy
+  psycopg2-binary
+  pandas
+  numpy
+  pyyaml
+  streamlit
+  plotly
+  python-dotenv
+  pytest
+  ```
 
 ---
 
-## References & Attribution
+## Contributing
 
-* [Gaia DR3 Archive](https://gea.esac.esa.int/archive/)
-* [Astroquery Documentation](https://astroquery.readthedocs.io/)
-* [Streamlit Docs](https://docs.streamlit.io/)
-* [ESA Gaia Mission Overview](https://www.cosmos.esa.int/web/gaia/science-performance)
+Pull requests are welcome!
+Feel free to open issues for suggestions, bug reports, or new features.
 
-**Cite Gaia as:**
-Gaia Collaboration et al. 2022, A\&A, 666, A1.
-See [https://gea.esac.esa.int/archive/documentation/GDR3/](https://gea.esac.esa.int/archive/documentation/GDR3/)
+---
+
+## License
+
+MIT License.
 
 ---
 
 ## Acknowledgments
 
-* Built with open-source tools for research, teaching, and portfolio demonstration.
-* Project maintained by Christopher Crow ([@yourgithub](https://github.com/christophercrow))
+* [ESA Gaia Mission](https://www.cosmos.esa.int/web/gaia)
+* [Astroquery](https://astroquery.readthedocs.io/)
+* [Astropy](https://www.astropy.org/)
+* [Streamlit](https://streamlit.io/)
 
 ---
 
-# FAQ
+## Contact
 
-**Q: Can I extend this to other catalogs or science cases?**
-A: Yes! The ETL and dashboard code are modular—swap out the ADQL query, add new features, or connect to additional astronomical tables.
-
-**Q: How big a dataset can this handle?**
-A: The structure is robust for tens to hundreds of thousands of stars (as a demo). For millions, use the partitioning scripts and consider optimizing dashboard queries.
-
-**Q: How do I deploy this for a team/class?**
-A: Use Docker for the database and Streamlit Cloud or similar for the dashboard UI.
+For questions or collaboration, open an issue or contact \[github.com/christophercrow].
 
 ---
 
-# Contributing
+**Happy exploring the galaxy!** 🌌
 
-Pull requests, issues, and feature requests are always welcome!
-For major changes, please open an issue first to discuss what you’d like to change.
-
----
 
