@@ -2,7 +2,7 @@
 
 **A full-stack, graduate-level pipeline for querying, processing, and exploring Gaia DR3 data with scientific visualizations.**
 
-[screenshot of dashboard](docs/example_dashboard.png)
+example_dashboard.png
 
 ---
 
