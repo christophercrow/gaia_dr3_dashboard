@@ -2,11 +2,11 @@
 
 **A full-stack, graduate-level pipeline for querying, processing, and exploring Gaia DR3 data with scientific visualizations.**
 
-![screenshot of dashboard](docs/example_dashboard.png) <!-- Add this image after running the app -->
+[screenshot of dashboard](docs/example_dashboard.png)
 
 ---
 
-## 🚀 Project Overview
+## Project Overview
 
 This project demonstrates an end-to-end, modular workflow for extracting astrophysical insight from the ESA Gaia DR3 catalog.  
 It features:
@@ -16,7 +16,7 @@ It features:
 - **Modular, testable codebase:** All components are unit-tested and can be extended for advanced research or teaching.
 - **Reproducible deployment:** Docker, Makefile, and .env-driven configuration make setup fast on any platform.
 
-## ✨ Scientific Motivation
+## Scientific Motivation
 
 The Gaia mission has transformed our understanding of the Milky Way by mapping the positions, distances, and motions of more than a billion stars.  
 This project provides a *research-ready* starting point for:
@@ -26,7 +26,7 @@ This project provides a *research-ready* starting point for:
 - Studying high-proper-motion stars
 - Teaching data-driven astrophysics with real data
 
-## 📦 Directory Structure
+## Directory Structure
 
 ```
 
@@ -115,7 +115,7 @@ Then open `http://localhost:8501` in your browser.
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run all tests with:
 
@@ -131,7 +131,7 @@ pytest tests/
 
 ---
 
-## 📊 Example Scientific Use Cases
+## Example Scientific Use Cases
 
 * **Solar Neighborhood:**
   Set `parallax_min: 20` (within 50pc), see the HR diagram for local stellar types.
@@ -147,7 +147,7 @@ pytest tests/
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### ETL Pipeline
 
@@ -180,7 +180,7 @@ pytest tests/
 
 ---
 
-## 📖 References & Attribution
+## References & Attribution
 
 * [Gaia DR3 Archive](https://gea.esac.esa.int/archive/)
 * [Astroquery Documentation](https://astroquery.readthedocs.io/)
@@ -193,10 +193,10 @@ See [https://gea.esac.esa.int/archive/documentation/GDR3/](https://gea.esac.esa.
 
 ---
 
-## 💡 Acknowledgments
+## Acknowledgments
 
 * Built with open-source tools for research, teaching, and portfolio demonstration.
-* Project maintained by \[Your Name] ([@yourgithub](https://github.com/yourusername))
+* Project maintained by Christopher Crow ([@yourgithub](https://github.com/christophercrow))
 
 ---
 
