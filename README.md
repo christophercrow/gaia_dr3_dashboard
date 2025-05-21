@@ -207,7 +207,7 @@ MIT License.
 
 ## Contact
 
-For questions or collaboration, open an issue or contact /[github.com/christophercrow](github.com/christophercrow).
+For questions or collaboration, open an issue or contact [https://github.com/christophercrow](https://github.com/christophercrow).
 
 ---
 
